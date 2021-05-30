@@ -10,9 +10,9 @@ how to run programs
 
 ### 1. User & JWT authentication
 Methods	Urls	Actions
-POST	/api/auth/signup	    signup new account
-POST	/api/auth/signin	    login an account
-GET	  /api/test/all	        retrieve public content
-GET	  /api/test/user	      access User’s content
-GET	  /api/test/mod	        access Moderator’s content
-GET	  /api/test/admin	      access Admin’s content
+1. POST	  /api/auth/signup	    signup new account
+2. POST	  /api/auth/signin	    login an account
+3. GET	  /api/test/all	        retrieve public content
+4. GET	  /api/test/user	      access User’s content
+5. GET	  /api/test/mod	        access Moderator’s content
+6. GET	  /api/test/admin	      access Admin’s content
