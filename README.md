@@ -1,5 +1,7 @@
 # node-js-jwt-auth
 
+wah the best ni aku, lega juga kelarin project backend ini, karna biasanya diriku cuma pegang frontend doang haha.
+project backend rest API ini menggunakan `MYSQL, EXPRESS, NODEJS`
 
 how to run programs
 1. masuk ke direktori projek dan ketik `npm install`
