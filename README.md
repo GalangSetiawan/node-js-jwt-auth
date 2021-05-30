@@ -6,10 +6,13 @@ how to run programs
 2. untuk running programs ketik 'node `server.js`
 
 
+for your information
+1. server running on port `8080`
+2. create database with name `nodejs`
+
 ## LIST API 
 
 ### 1. User & JWT authentication
-Methods	Urls	Actions
 1. POST	  `/api/auth/signup`	    signup new account
 2. POST	  `/api/auth/signin`	    login an account
 3. GET	  `/api/test/all`	        retrieve public content
