@@ -6,10 +6,12 @@ project backend rest API ini menggunakan `MYSQL, EXPRESS, NODEJS`
 how to run programs
 1. run `npm install` on project directory
 2. running server with `node server.js`
+3. create database with name `nodejs`
 
 for your information
-1. server running on port `8080`
-2. create database with name `nodejs`
+1. Server running on port `8080`
+2. You don't need to setup the tables in the database because the tables inside are generated automatically
+3. user default | username `galang` password `123456`
 
 ## LIST API 
 
