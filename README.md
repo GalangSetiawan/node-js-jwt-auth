@@ -16,7 +16,7 @@ for your information
 ## LIST API 
 
 ### 1. User & JWT Authentication
-role admin `user, moderator, admin`
+role admin *user, moderator, admin*
 1. POST	  `/api/auth/signup`	    signup new account
 2. POST	  `/api/auth/signin`	    login an account
 3. GET	  `/api/test/all`	        retrieve public content
