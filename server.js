@@ -7,7 +7,9 @@ global.__basedir = __dirname;
 
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  // origin: "http://localhost:8081"
+  origin: "*"
+  
 };
 
 app.use(cors(corsOptions));
@@ -24,10 +26,10 @@ const Role = db.role;
 const User = db.user;
 
 
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync Db');
-  initial();
-});
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync Db');
+//   initial();
+// });
 
 db.sequelize.sync();
 

@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
       news: {
         type: Sequelize.TEXT
       },
+      type: {
+        type: Sequelize.STRING
+      },
       imageNews: {
         type: Sequelize.BLOB('long')
       },

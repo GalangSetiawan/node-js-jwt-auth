@@ -8,15 +8,22 @@ var _ = require('lodash');
 
 // API untuk Simpan data
 exports.postBerita = async (req, res) => {
-	var timeStampFileName = (new Date()).getTime() +'_'+ req.file.originalname;
+	// var timeStampFileName = (new Date()).getTime() +'_'+ req.file.originalname;
+	console.log('req.file ===>',req.file)
 	var data = {
 		title    : req.body.title ,
 		news     : req.body.news,
-		imageNews: req.file.buffer,
+		imageNews: req.file == undefined ? null : req.file.buffer,
+		type 	 : req.file == undefined ? null : req.file.mimetype,
 		tags     : req.body.tags,
 		likes    : req.body.likes,
 		userId   : req.body.userId,
 	}
+
+	if(req.file == undefined){
+		delete data.imageNews
+	}
+
 	await beritaModel.create(data).then(file => {
 		var sendRespone = file.dataValues; 
 		delete sendRespone.imageNews
@@ -43,6 +50,10 @@ exports.updateBerita =  (req, res) => {
 			message: "required id in param"
 		});
 	}else{
+		if(req.file != undefined){
+			req.body.imageNews = req.file.buffer
+			req.body.type = req.file.mimetype
+		}
 		beritaModel.update(req.body, { where: { id: id }})
 		   	.then( num => {
 			  if (num == 1) {
@@ -122,7 +133,7 @@ exports.deleteBerita = (req, res) => {
             message: "Tutorial was deleted successfully!"
           });
         } else {
-          res.send({
+          res.status(400).send({
             message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
           });
         }

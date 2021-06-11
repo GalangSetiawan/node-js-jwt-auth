@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
       websiteImage: {
         type: Sequelize.BLOB('long')
       },
+      type: {
+        type: Sequelize.STRING
+      },
       address: {
         type: Sequelize.STRING
       },

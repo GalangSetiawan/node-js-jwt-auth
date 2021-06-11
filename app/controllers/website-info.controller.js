@@ -12,7 +12,8 @@ exports.postWebsiteInfo = async (req, res) => {
 	var data = {
 		mapLocation     : req.body.mapLocation ,
 		websiteName     : req.body.websiteName,
-		websiteImage    : req.file.buffer,
+		websiteImage    : req.file == undefined ? null: req.file.buffer,
+		type 	        : req.file == undefined ? null: req.file.mimetype,
 		address         : req.body.address,
 		websiteImageName: timeStampFileName
 	}
@@ -42,6 +43,10 @@ exports.updateWebsiteInfo = (req, res) => {
 			message: "required id in param"
 		});
 	}else{
+		if(req.file != undefined){
+			req.body.websiteImage = req.file.buffer
+			req.body.type = req.file.mimetype
+		}
 		websiteInfoModel.update(req.body, {
 			where: { id: id }
 		  })

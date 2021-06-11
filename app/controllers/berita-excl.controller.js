@@ -10,7 +10,8 @@ exports.postBerita = async (req, res) => {
 	var data = {
 		title    : req.body.title ,
 		news     : req.body.news,
-		imageNews: req.file.buffer,
+		imageNews: req.file == undefined ? null :req.file.buffer,
+		type 	 : req.file == undefined ? null : req.file.mimetype,
 		groups     : req.body.groups,
 		userId   : req.body.userId,
 	}
@@ -40,6 +41,11 @@ exports.updateBerita =  (req, res) => {
 			message: "required id in param"
 		});
 	}else{
+
+		if(req.file != undefined){
+			req.body.imageNews = req.file.buffer
+			req.body.type = req.file.mimetype
+		}
 		beritaExclModel.update(req.body, { where: { id: id }})
 		   	.then( num => {
 			  if (num == 1) {

@@ -11,7 +11,8 @@ exports.postFasilitas = async (req, res) => {
 	var data = {
 		namaFasilitas: req.body.namaFasilitas ,
 		deskripsi    : req.body.deskripsi,
-		icon	     : req.file.buffer,
+		icon	     : req.file == undefined ? null : req.file.buffer,
+		type 	     : req.file == undefined ? null : req.file.mimetype,
 		userId       : req.body.userId,
 	}
 	await fasilitasModel.create(data).then(file => {
@@ -40,6 +41,10 @@ exports.updateFasilitas =  (req, res) => {
 			message: "required id in param"
 		});
 	}else{
+		if(req.file != undefined){
+			req.body.icon = req.file.buffer
+			req.body.type = req.file.mimetype
+		}
 		fasilitasModel.update(req.body, { where: { id: id }})
 		   	.then( num => {
 			  if (num == 1) {

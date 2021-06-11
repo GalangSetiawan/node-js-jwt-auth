@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
       icon: {
         type: Sequelize.BLOB('long')
       },
+      type: {
+        type: Sequelize.STRING
+      },
       userId: {
         type: Sequelize.INTEGER
       }
