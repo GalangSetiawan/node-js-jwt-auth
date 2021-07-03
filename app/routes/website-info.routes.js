@@ -23,7 +23,7 @@ module.exports = app => {
     controller.getWebsiteInfo
     );
 
-    router.get('/:id',
+    router.get('/img/:id',
     // [authJwt.verifyToken],
     controller.getImageWebsiteInfo
     );
