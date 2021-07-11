@@ -7,14 +7,12 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post('/',
-    // [authJwt.verifyToken],
-    upload.single("icon"), 
+    [authJwt.verifyToken],
     controller.postFasilitas
     );
 
     router.put('/:id',
-    // [authJwt.verifyToken],
-    upload.single("icon"), 
+    [authJwt.verifyToken],
     controller.updateFasilitas
     );
 
@@ -28,13 +26,8 @@ module.exports = app => {
     controller.getByIdFasilitas
     );
 
-    router.get('/icon/:id',
-    // [authJwt.verifyToken],
-    controller.getImageFasilitas
-    );
-
     router.delete("/:id",
-    // [authJwt.verifyToken], 
+    [authJwt.verifyToken], 
     controller.deleteFasilitas);
     
     app.use('/api/fasilitas', router);

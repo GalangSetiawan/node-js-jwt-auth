@@ -8,22 +8,29 @@ module.exports = app => {
 
     router.post('/',
     [authJwt.verifyToken],
+    upload.single("paketWisataImg"), 
     controller.postPaketWisata
     );
 
     router.put('/:id',
     [authJwt.verifyToken],
+    upload.single("paketWisataImg"), 
     controller.updatePaketWisata
     );
 
     router.get('/',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.getAllPaketWisata
     );
 
     router.get('/:id',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.getByIdPaketWisata
+    );
+
+    router.get('/img/:id',
+    // [authJwt.verifyToken],
+    controller.getImageWisata
     );
 
     router.delete("/:id",

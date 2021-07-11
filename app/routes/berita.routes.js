@@ -7,13 +7,13 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post('/',
-    // [authJwt.verifyToken],
+    [authJwt.verifyToken],
     upload.single("imageNews"), 
     controller.postBerita
     );
 
     router.put('/:id',
-    // [authJwt.verifyToken],
+    [authJwt.verifyToken],
     upload.single("imageNews"), 
     controller.updateBerita
     );
@@ -34,7 +34,7 @@ module.exports = app => {
     );
 
     router.delete("/:id",
-    // [authJwt.verifyToken], 
+    [authJwt.verifyToken], 
     controller.deleteBerita);
     
     app.use('/api/berita', router);

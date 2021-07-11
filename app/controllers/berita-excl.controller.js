@@ -32,6 +32,26 @@ exports.postBerita = async (req, res) => {
 }
 
 
+
+exports.getBeritaByGroups =  (req, res) => {
+	var groupName = req.params.groupName
+	beritaExclModel.findAll(
+		{
+			where: {
+				groups: groupName,
+			},
+			attributes:{
+				exclude:["imageNews"]
+			}
+		}
+		).then(files => {
+	    res.status(200).send(files);
+	}).catch(err => {
+		console.log(err);
+		res.json({msg: 'Error', detail: err});
+	});
+}
+
 // API untuk Update
 exports.updateBerita =  (req, res) => {
 	console.log('req.params ==>',req.params)
@@ -92,7 +112,7 @@ exports.getAllBerita = (req, res) => {
 	    res.status(200).send(files);
 	}).catch(err => {
 		console.log(err);
-		res.json({msg: 'Error', detail: err});
+		res.json({msg: 'Error', detail: err}).status(500);
 	});
 }
 

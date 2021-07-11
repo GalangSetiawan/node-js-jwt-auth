@@ -17,12 +17,12 @@ module.exports = app => {
     );
 
     router.get('/',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.getAllSejarahDesa
     );
 
     router.get('/:id',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.getByIdSejarahDesa
     );
 

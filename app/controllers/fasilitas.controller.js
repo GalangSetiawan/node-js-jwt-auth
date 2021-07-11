@@ -11,8 +11,7 @@ exports.postFasilitas = async (req, res) => {
 	var data = {
 		namaFasilitas: req.body.namaFasilitas ,
 		deskripsi    : req.body.deskripsi,
-		icon	     : req.file == undefined ? null : req.file.buffer,
-		type 	     : req.file == undefined ? null : req.file.mimetype,
+		icon         : req.body.icon,
 		userId       : req.body.userId,
 	}
 	await fasilitasModel.create(data).then(file => {
@@ -41,10 +40,6 @@ exports.updateFasilitas =  (req, res) => {
 			message: "required id in param"
 		});
 	}else{
-		if(req.file != undefined){
-			req.body.icon = req.file.buffer
-			req.body.type = req.file.mimetype
-		}
 		fasilitasModel.update(req.body, { where: { id: id }})
 		   	.then( num => {
 			  if (num == 1) {
@@ -73,7 +68,7 @@ exports.updateFasilitas =  (req, res) => {
 // API untuk GET data by id
 exports.getByIdFasilitas = (req, res) => {
     const id = req.params.id;
-    fasilitasModel.findByPk(id, {attributes:{exclude:["icon"]}})
+    fasilitasModel.findByPk()
       .then(data => {
         res.send(data);
       })
@@ -87,30 +82,14 @@ exports.getByIdFasilitas = (req, res) => {
 
 // API untuk GET data
 exports.getAllFasilitas = (req, res) => {
-	fasilitasModel.findAll({attributes:{exclude:["icon"]}}).then(files => {
-	    res.status(200).send(files);
+	fasilitasModel.findAll().then(files => {
+		// fasilitasModel.findAll({attributes:{exclude:["icon"]}}).then(files => {
+			res.status(200).send(files);
 	}).catch(err => {
 		console.log(err);
 		res.json({msg: 'Error', detail: err});
 	});
 }
-
-
-// API untuk get Image by Id
-exports.getImageFasilitas = (req, res) => {
-	fasilitasModel.findByPk(req.params.id).then(file => {
-		var fileContents = Buffer.from(file.icon, "base64");
-		var readStream = new stream.PassThrough();
-		readStream.end(fileContents);
-		res.set('Content-disposition', 'attachment; filename=' + file.name);
-		res.set('Content-Type', file.type);
-		readStream.pipe(res);
-	}).catch(err => {
-		console.log(err);
-		res.json({msg: 'Error', detail: err});
-	});
-}
-
 
 
 exports.deleteFasilitas = (req, res) => {

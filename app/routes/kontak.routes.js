@@ -7,12 +7,12 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post('/',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.postKontak
     );
 
     router.put('/:id',
-    [authJwt.verifyToken],
+    // [authJwt.verifyToken],
     controller.updateKontak
     );
 
@@ -27,7 +27,7 @@ module.exports = app => {
     );
 
     router.delete("/:id",
-    [authJwt.verifyToken], 
+    // [authJwt.verifyToken], 
     controller.deleteKontak);
     
     app.use('/api/kontak', router);

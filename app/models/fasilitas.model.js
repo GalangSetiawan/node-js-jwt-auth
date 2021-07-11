@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.TEXT('long')
       },
       icon: {
-        type: Sequelize.BLOB('long')
+        type: Sequelize.STRING
       },
       type: {
         type: Sequelize.STRING

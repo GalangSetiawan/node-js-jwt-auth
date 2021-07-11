@@ -7,13 +7,13 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post('/',
-    // [authJwt.verifyToken],
+    [authJwt.verifyToken],
     upload.single("websiteImage"), 
     controller.postWebsiteInfo
     );
 
     router.put('/:id',
-    // [authJwt.verifyToken],
+    [authJwt.verifyToken],
     upload.single("websiteImage"), 
     controller.updateWebsiteInfo
     );
@@ -29,7 +29,7 @@ module.exports = app => {
     );
 
     router.delete("/:id",
-    // [authJwt.verifyToken], 
+    [authJwt.verifyToken], 
     controller.deleteWebsiteInfo);
     
     app.use('/api/website-info', router);

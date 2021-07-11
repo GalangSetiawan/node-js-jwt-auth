@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 const User = db.user;
+const WebInfo = db.websiteInfos
 
 
 // db.sequelize.sync({force: true}).then(() => {
@@ -71,6 +72,13 @@ app.listen(PORT, () => {
 
 
 function initial() {
+
+    WebInfo.create({
+      websiteName: 'Initial Title Website',
+      mapLocation :'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15850.148026808574!2d107.65491430065104!3d-6.704115472449884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e691f61489ace7b%3A0x9459ace47ea1f167!2sCisaat%2C%20Ciater%2C%20Subang%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1625909864791!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
+      address : 'iniitial Address'
+    })
+
     Role.create({
       id: 1,
       name: "user"

@@ -7,16 +7,18 @@ var _ = require('lodash');
 // API untuk Simpan data
 exports.postPaketWisata = async (req, res) => {
 	var data = {
-		price      : req.body.price ,
-		title      : req.body.title,
-		description: req.body.description,
-		time       : req.body.time,
-		userId     : req.body.userId,
+		price         : req.body.price ,
+		title         : req.body.title,
+		description   : req.body.description,
+		time          : req.body.time,
+		userId        : req.body.userId,
+		paketWisataImg: req.file == undefined ? null :req.file.buffer,
 	}
 
 	console.log('postPaketWisata data ===>',req)
 	await paketWisataModel.create(data).then(file => {
 		var sendRespone = file.dataValues; 
+		delete sendRespone.paketWisataImg
 		sendRespone.status  = "ok"
 		sendRespone.message = "Data Saved Successfuly!",
 		res.status(200);
@@ -40,11 +42,15 @@ exports.updatePaketWisata =  (req, res) => {
 			message: "required id in param"
 		});
 	}else{
+		if(req.file != undefined){
+			req.body.paketWisataImg = req.file.buffer
+		}
 		paketWisataModel.update(req.body, { where: { id: id }})
 		   	.then( num => {
 			  if (num == 1) {
 				 paketWisataModel.findOne({
 					where:{id:id},
+					attributes : { exclude:['paketWisataImg']}
 				}).then(data => {	
 					data.dataValues.message = "paketWisataModel was updated successfully."
 					res.status(200).send(data)
@@ -90,6 +96,20 @@ exports.getAllPaketWisata = (req, res) => {
 }
 
 
+// API untuk get Image by Id
+exports.getImageWisata = (req, res) => {
+	paketWisataModel.findByPk(req.params.id).then(file => {
+		var fileContents = Buffer.from(file.paketWisataImg, "base64");
+		var readStream = new stream.PassThrough();
+		readStream.end(fileContents);
+		res.set('Content-disposition', 'attachment; filename=' + file.name);
+		res.set('Content-Type', 'image/png');
+		readStream.pipe(res);
+	}).catch(err => {
+		console.log(err);
+		res.json({msg: 'Error', detail: err});
+	});
+}
 
 // API untuk hapus data
 exports.deletePaketWisata = (req, res) => {

@@ -14,7 +14,10 @@ module.exports = (sequelize, Sequelize) => {
       },
       userId: {
         type: Sequelize.INTEGER
-      }
+      },
+      paketWisataImg: {
+        type: Sequelize.BLOB('long')
+      },
     });
   
     return PaketWisata;
