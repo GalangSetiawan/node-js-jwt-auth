@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
       type: {
         type: Sequelize.STRING
       },
+      slug: {
+        type: Sequelize.STRING
+      },
       news: {
         type: Sequelize.TEXT
       },

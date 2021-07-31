@@ -28,6 +28,16 @@ module.exports = app => {
     controller.getByIdBerita
     );
 
+    router.get('/slug/:slug',
+    // [authJwt.verifyToken],
+    controller.getBySlug
+    );
+
+    router.get('/top-5/all',
+    // [authJwt.verifyToken],
+    controller.getBeritaTop5
+    );
+
     router.get('/img/:id',
     // [authJwt.verifyToken],
     controller.getImageBerita

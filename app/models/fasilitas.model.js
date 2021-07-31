@@ -9,9 +9,6 @@ module.exports = (sequelize, Sequelize) => {
       icon: {
         type: Sequelize.STRING
       },
-      type: {
-        type: Sequelize.STRING
-      },
       userId: {
         type: Sequelize.INTEGER
       }

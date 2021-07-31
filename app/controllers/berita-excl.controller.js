@@ -6,15 +6,21 @@ var _ = require('lodash');
 
 // API untuk Simpan data
 exports.postBerita = async (req, res) => {
-	var timeStampFileName = (new Date()).getTime() +'_'+ req.file.originalname;
+	// var timeStampFileName = (new Date()).getTime() +'_'+ req.file.originalname;
 	var data = {
 		title    : req.body.title ,
 		news     : req.body.news,
+		slug     : req.body.slug,
 		imageNews: req.file == undefined ? null :req.file.buffer,
 		type 	 : req.file == undefined ? null : req.file.mimetype,
 		groups     : req.body.groups,
 		userId   : req.body.userId,
 	}
+
+	if(req.file == undefined){
+		delete data.imageNews
+	}
+
 	await beritaExclModel.create(data).then(file => {
 		var sendRespone = file.dataValues; 
 		delete sendRespone.imageNews
@@ -31,6 +37,44 @@ exports.postBerita = async (req, res) => {
 	});
 }
 
+
+// API untuk GET data by slug
+exports.getBySlug = (req, res) => {
+    const slug = req.params.slug;
+    beritaExclModel.findOne({ where: {slug: slug} }).then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Tutorial with id=" + id
+        });
+      });
+}
+
+
+
+// API untuk GET Top 5 data
+exports.getBeritaTop5 = (req, res) => {
+	beritaExclModel.findAll({
+		// attributes:{exclude:["imageNews"]},
+		// order : [ 'title' ] ,
+		// where: {
+		//    title: {
+		// 	 $like: 'foo%'
+		//    }
+		// },
+		// offset: 10,
+		limit: 5
+	 })
+	.then(data => {
+		res.send(data);
+	})
+	.catch(err => {
+		res.status(500).send({
+		message: "Error retrieving Tutorial with id=" + id
+		});
+	});
+};
 
 
 exports.getBeritaByGroups =  (req, res) => {

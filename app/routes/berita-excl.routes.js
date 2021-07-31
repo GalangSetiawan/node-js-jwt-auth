@@ -28,6 +28,16 @@ module.exports = app => {
     controller.getBeritaByGroups
     );
 
+    router.get('/slug/:slug',
+    // [authJwt.verifyToken],
+    controller.getBySlug
+    );
+
+    router.get('/top-5/all',
+    // [authJwt.verifyToken],
+    controller.getBeritaTop5
+    );
+
     router.get('/:id',
     // [authJwt.verifyToken],
     controller.getByIdBerita

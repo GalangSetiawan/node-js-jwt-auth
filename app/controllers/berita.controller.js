@@ -13,6 +13,7 @@ exports.postBerita = async (req, res) => {
 	var data = {
 		title    : req.body.title ,
 		news     : req.body.news,
+		slug     : req.body.slug,
 		imageNews: req.file == undefined ? null : req.file.buffer,
 		type 	 : req.file == undefined ? null : req.file.mimetype,
 		tags     : req.body.tags,
@@ -91,7 +92,48 @@ exports.getByIdBerita = (req, res) => {
           message: "Error retrieving Tutorial with id=" + id
         });
       });
-  };
+}
+
+
+
+// API untuk GET data by slug
+exports.getBySlug = (req, res) => {
+    const slug = req.params.slug;
+    beritaModel.findOne({ where: {slug: slug} }).then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Tutorial with id=" + id
+        });
+      });
+}
+
+
+
+// API untuk GET Top 5 data
+exports.getBeritaTop5 = (req, res) => {
+	beritaModel.findAll({
+		// attributes:{exclude:["imageNews"]},
+		// order : [ 'title' ] ,
+		// where: {
+		//    title: {
+		// 	 $like: 'foo%'
+		//    }
+		// },
+		// offset: 10,
+		limit: 5
+	 })
+	.then(data => {
+		res.send(data);
+	})
+	.catch(err => {
+		res.status(500).send({
+		message: "Error retrieving Tutorial with id=" + id
+		});
+	});
+};
+
 
 
 // API untuk GET data
