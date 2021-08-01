@@ -2,6 +2,8 @@ var stream = require('stream');
 const db = require("../models");
 const beritaExclModel = db.beritaExcl;
 var _ = require('lodash');
+const { Op } = require("sequelize");
+
 
 
 // API untuk Simpan data
@@ -52,17 +54,18 @@ exports.getBySlug = (req, res) => {
 }
 
 
-
 // API untuk GET Top 5 data
 exports.getBeritaTop5 = (req, res) => {
 	beritaExclModel.findAll({
 		// attributes:{exclude:["imageNews"]},
 		// order : [ 'title' ] ,
-		// where: {
-		//    title: {
-		// 	 $like: 'foo%'
-		//    }
-		// },
+		where: {
+		   groups: {
+			$not: 'paket-wisata%',
+			$not: 'attraction%',
+			 
+		   }
+		},
 		// offset: 10,
 		limit: 5
 	 })
@@ -152,7 +155,24 @@ exports.getByIdBerita = (req, res) => {
 
 // API untuk GET data
 exports.getAllBerita = (req, res) => {
-	beritaExclModel.findAll({attributes:{exclude:["imageNews"]}}).then(files => {
+	beritaExclModel.findAll(
+		{
+			attributes:{exclude:["imageNews"]},
+			where: {
+				[Op.and]: [
+					{
+						groups: {
+						  [Op.notLike]: '%paket-wisata%'
+						}
+					},
+					{
+						groups: {
+						  [Op.notLike]: '%attraction%'
+						}
+					}
+				],
+			 },
+	}).then(files => {
 	    res.status(200).send(files);
 	}).catch(err => {
 		console.log(err);

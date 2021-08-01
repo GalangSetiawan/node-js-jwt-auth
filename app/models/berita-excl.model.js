@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       groups: {
         type: Sequelize.ENUM,
-        values : ['sejarah', 'umum', 'kalender-event','potensi-desa-wisata','daya-tarik','bentang-alam','budaya','papais','cisaat']
+        values : ['sejarah', 'umum', 'kalender-event','potensi-desa-wisata','daya-tarik','bentang-alam','budaya','papais','cisaat','attraction','paket-wisata']
       },
       userId: {
         type: Sequelize.INTEGER
