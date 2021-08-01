@@ -57,15 +57,35 @@ exports.getBySlug = (req, res) => {
 // API untuk GET Top 5 data
 exports.getBeritaTop5 = (req, res) => {
 	beritaExclModel.findAll({
+
+		order: [
+			['createdAt', 'DESC'],
+		],
+
+		where: {
+			[Op.and]: [
+				{
+					groups: {
+					  [Op.notLike]: '%potensi-desa-wisata%'
+					}
+				},
+				{
+					groups: {
+					  [Op.notLike]: '%daya-tarik%'
+					}
+				}
+			],
+		},
+
 		// attributes:{exclude:["imageNews"]},
 		// order : [ 'title' ] ,
-		where: {
-		   groups: {
-			$not: 'paket-wisata%',
-			$not: 'attraction%',
+		// where: {
+		//    groups: {
+		// 	$not: 'paket-wisata%',
+		// 	$not: 'attraction%',
 			 
-		   }
-		},
+		//    }
+		// },
 		// offset: 10,
 		limit: 5
 	 })
@@ -87,9 +107,9 @@ exports.getBeritaByGroups =  (req, res) => {
 			where: {
 				groups: groupName,
 			},
-			attributes:{
-				exclude:["imageNews"]
-			}
+			// attributes:{
+			// 	exclude:["imageNews"]
+			// }
 		}
 		).then(files => {
 	    res.status(200).send(files);
