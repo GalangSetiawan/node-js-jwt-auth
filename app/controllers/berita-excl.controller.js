@@ -60,6 +60,8 @@ exports.getBeritaTop5 = (req, res) => {
 
 		order: [
 			['createdAt', 'DESC'],
+			['UpdatedAt', 'DESC'],
+			
 		],
 
 		where: {
@@ -104,6 +106,11 @@ exports.getBeritaByGroups =  (req, res) => {
 	var groupName = req.params.groupName
 	beritaExclModel.findAll(
 		{
+			order: [
+				['createdAt', 'DESC'],
+				['UpdatedAt', 'DESC'],
+				
+			],
 			where: {
 				groups: groupName,
 			},
@@ -177,6 +184,11 @@ exports.getByIdBerita = (req, res) => {
 exports.getAllBerita = (req, res) => {
 	beritaExclModel.findAll(
 		{
+			order: [
+				['createdAt', 'DESC'],
+				['UpdatedAt', 'DESC'],
+				
+			],
 			attributes:{exclude:["imageNews"]},
 			where: {
 				[Op.and]: [

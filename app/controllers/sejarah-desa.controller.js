@@ -80,7 +80,11 @@ exports.getByIdSejarahDesa = (req, res) => {
 
 // API untuk GET data
 exports.getAllSejarahDesa = (req, res) => {
-	sejarahDesaModel.findAll().then(files => {
+	sejarahDesaModel.findAll({
+		order: [
+			['tahun', 'DESC'],
+		],
+	}).then(files => {
 	    res.status(200).send(files);
 	}).catch(err => {
 		console.log(err);

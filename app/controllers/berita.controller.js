@@ -114,6 +114,11 @@ exports.getBySlug = (req, res) => {
 // API untuk GET Top 5 data
 exports.getBeritaTop5 = (req, res) => {
 	beritaModel.findAll({
+		order: [
+			['createdAt', 'DESC'],
+			['UpdatedAt', 'DESC'],
+			
+		],
 		// attributes:{exclude:["imageNews"]},
 		// order : [ 'title' ] ,
 		// where: {
@@ -138,7 +143,14 @@ exports.getBeritaTop5 = (req, res) => {
 
 // API untuk GET data
 exports.getAllBerita = (req, res) => {
-	beritaModel.findAll({attributes:{exclude:["imageNews"]}}).then(files => {
+	beritaModel.findAll({
+		order: [
+			['createdAt', 'DESC'],
+			['UpdatedAt', 'DESC'],
+			
+		],
+		attributes:{exclude:["imageNews"]}
+	}).then(files => {
 	    res.status(200).send(files);
 	}).catch(err => {
 		console.log(err);
