@@ -5,7 +5,7 @@ const app = express();
 
 global.__basedir = __dirname;
 
-
+//test commit
 var corsOptions = {
   // origin: "http://localhost:8081"
   origin: "*"
